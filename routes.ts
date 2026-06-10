@@ -9,13 +9,14 @@ export const API_ROUTES = {
   BASE_API: "/api",
   LOGIN: "/login",
   REGISTER: "/register",
-  FORGOT_PASSWORD: "/forgot-password",
-  UPDATE_PASSWORD: "/update-password",
 } as const;
 
 export const AUTH_META = {
   PUBLIC_ACCESS: "/login",
+  REGISTER: "/register",
   AFTER_LOGIN_REDIRECT: "/",
+  FORGOT_PASSWORD: "/forgot-password",
+  UPDATE_PASSWORD: "/update-password",
 } as const;
 
 /**
