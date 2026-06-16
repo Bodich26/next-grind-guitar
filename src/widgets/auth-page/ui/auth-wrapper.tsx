@@ -23,18 +23,16 @@ export const AuthWrapper = ({
               <div className="w-12 h-12 bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-2xl flex items-center justify-center text-3xl shadow-xl shadow-violet-500/30">
                 🎸
               </div>
-              <span className="text-3xl font-bold tracking-tighter">
-                Grind Guitar
-              </span>
+              <span className="text-3xl font-bold">Grind Guitar</span>
             </div>
 
-            <h1 className="text-5xl xl:text-6xl font-black tracking-tighter leading-none mb-6">
+            <h1 className="text-5xl xl:text-6xl font-black mb-6">
               Стань Лучше
               <br />
               Сегодня.
             </h1>
 
-            <p className="text-zinc-400 text-lg max-w-xs leading-relaxed">
+            <p className="text-zinc-400 text-lg max-w-xs">
               Твоё пространство для ежедневного гитарного прогресса
             </p>
           </div>

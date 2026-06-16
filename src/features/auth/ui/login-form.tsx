@@ -2,17 +2,14 @@
 import { useLogin } from "../model/use-login";
 import { ArrowRight, Lock, Mail } from "lucide-react";
 import {
-  Button,
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
+  FormHeader,
+  FormFooter,
   Input,
 } from "@/shared";
 import Link from "next/link";
@@ -25,14 +22,10 @@ export const LoginForm = () => {
 
   return (
     <Card className="bg-transparent">
-      <CardHeader className="space-y-3">
-        <CardTitle className="text-3xl font-bold text-center">
-          Вход в аккаунт
-        </CardTitle>
-        <CardDescription className="text-center text-[15px]">
-          Добро пожаловать в Grind Guitar
-        </CardDescription>
-      </CardHeader>
+      <FormHeader
+        titles={"Вход в аккаунт"}
+        text={"Добро пожаловать в Grind Guitar"}
+      />
       <form id="login-rhf-form" onSubmit={handleSubmitForm}>
         <CardContent className="space-y-6">
           <FieldGroup>
@@ -93,7 +86,7 @@ export const LoginForm = () => {
                       {...field}
                       id="login-rhf-form-password"
                       aria-invalid={fieldState.invalid}
-                      placeholder="name@example.com"
+                      placeholder="********"
                       className="pl-11 h-12 rounded-2xl"
                       autoComplete="off"
                       disabled={isLoading}
@@ -110,42 +103,17 @@ export const LoginForm = () => {
             />
           </FieldGroup>
         </CardContent>
-        <CardFooter className="flex flex-col gap-4 pt-4 bg-transparent border-0 mt-5">
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="w-full h-12 font-semibold rounded-2xl text-base transition-all"
-          >
-            {isLoading ? (
-              <div className="flex items-center gap-2">
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                Входим...
-              </div>
-            ) : (
-              <>
-                Войти
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </>
-            )}
-          </Button>
-          <div className="text-center text-sm pt-2">
-            Нет аккаунта?{" "}
-            <Link
-              href={AUTH_META.REGISTER}
-              className="text-primary font-medium transition-colors"
-            >
-              Создать бесплатно
-            </Link>
-          </div>
-          {resSuccess && (
-            <div className="text-primary text-sm text-center">{resSuccess}</div>
-          )}
-          {resError && (
-            <div className="text-destructive text-sm text-center">
-              {resError}
-            </div>
-          )}
-        </CardFooter>
+        <FormFooter
+          isLoading={isLoading}
+          linkRedirect={AUTH_META.REGISTER}
+          actionError={resError}
+          actionSuccess={resSuccess}
+          buttonText={"Войти"}
+          buttonActionText={"Входим..."}
+          descriptionText={"Нет аккаунта?"}
+          linkText={"Создать бесплатно"}
+          buttonIcon={ArrowRight}
+        />
       </form>
     </Card>
   );

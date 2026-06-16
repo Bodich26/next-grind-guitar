@@ -12,7 +12,7 @@ export const API_ROUTES = {
 } as const;
 
 export const AUTH_META = {
-  PUBLIC_ACCESS: "/login",
+  LOGIN: "/login",
   REGISTER: "/register",
   AFTER_LOGIN_REDIRECT: "/",
   FORGOT_PASSWORD: "/forgot-password",

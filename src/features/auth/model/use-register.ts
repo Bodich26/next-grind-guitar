@@ -12,11 +12,7 @@ export const useRegister = () => {
   const [resSuccess, setResSuccess] = React.useState<string>("");
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterFormData>({
+  const { control, handleSubmit } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       email: "",
@@ -24,10 +20,6 @@ export const useRegister = () => {
       password: "",
     },
   });
-
-  const emailErrors = errors.email;
-  const nameErrors = errors.name;
-  const passwordErrors = errors.password;
 
   const handleSubmitForm = handleSubmit(async (data: RegisterFormData) => {
     setIsLoading(true);
@@ -46,11 +38,8 @@ export const useRegister = () => {
   });
 
   return {
-    register,
+    control,
     handleSubmitForm,
-    emailErrors,
-    passwordErrors,
-    nameErrors,
     resError,
     resSuccess,
     isLoading,

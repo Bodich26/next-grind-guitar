@@ -1,78 +1,79 @@
 "use client";
-import { Button, Field, Flex, Stack } from "@chakra-ui/react";
-import { TitlesForm } from "./titles-form";
-import { AuthRedirectForm } from "./auth-redirect-form";
-import { NoticeForm, PasswordInput } from "@/shared";
+import {
+  Card,
+  CardContent,
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FormFooter,
+  FormHeader,
+  Input,
+} from "@/shared";
 import { useUpdatePassword } from "../model/use-update-password";
+import { AUTH_META } from "@/../routes";
+import { ArrowRight, Lock } from "lucide-react";
+import { Controller } from "react-hook-form";
 
 export const UpdatePasswordForm = () => {
-  const {
-    handleSubmitForm,
-    passwordErrors,
-    register,
-    resError,
-    resSuccess,
-    isLoading,
-  } = useUpdatePassword();
+  const { control, handleSubmitForm, isLoading, resSuccess, resError } =
+    useUpdatePassword();
 
   return (
-    <Flex gap={"5"} flexDirection={"column"} className="max-w-[487px]">
-      <TitlesForm
+    <Card className="bg-transparent">
+      <FormHeader
         titles={"Сброс пароля"}
-        text={"Теперь вы можете ввести новый пароль для своего аккаунта"}
+        text={"Теперь вы можете создать новый пароль"}
       />
-      <form onSubmit={handleSubmitForm}>
-        <Stack
-          gap="4"
-          align="flex-start"
-          padding={"10"}
-          border={"solid"}
-          borderWidth={"thin"}
-          rounded={"md"}
-          width={"full"}
-          borderColor={"border.default"}
-          background={"bg.app"}
-        >
-          {/* Password */}
-
-          <Field.Root required invalid={!!passwordErrors}>
-            <Field.Label>
-              Пароль <Field.RequiredIndicator />
-            </Field.Label>
-            <PasswordInput
-              type="password"
-              {...register("password")}
-              required
-              placeholder="********"
-              borderColor={"border.default"}
+      <form id="update-rhf-form" onSubmit={handleSubmitForm}>
+        <CardContent className="space-y-6">
+          <FieldGroup>
+            <Controller
+              name="password"
+              control={control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel
+                    htmlFor="update-rhf-form-password"
+                    className="text-xs uppercase tracking-widest font-medium"
+                  >
+                    Пароль
+                  </FieldLabel>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-3.5 h-5 w-5 text-zinc-500" />
+                    <Input
+                      {...field}
+                      id="update-rhf-form-password"
+                      aria-invalid={fieldState.invalid}
+                      placeholder="********"
+                      className="pl-11 h-12 rounded-2xl"
+                      autoComplete="off"
+                      disabled={isLoading}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError
+                        className="mt-1"
+                        errors={[fieldState.error]}
+                      />
+                    )}
+                  </div>
+                </Field>
+              )}
             />
-            <Field.ErrorText>{passwordErrors?.message}</Field.ErrorText>
-          </Field.Root>
-
-          {/*Notice*/}
-          <NoticeForm success={resSuccess} error={resError} />
-
-          {/* Button */}
-
-          <Button
-            className="w-full"
-            type="submit"
-            background={"accent.primary"}
-            color={"text.white"}
-            rounded={"md"}
-            _active={{ background: "rose.800" }}
-            _hover={{ background: "rose.800" }}
-            loading={isLoading}
-          >
-            Обновить пароль
-          </Button>
-          <AuthRedirectForm
-            text={"Хотите вернуться?"}
-            linkText={"Войти"}
-            href={"/login"}
-          />
-        </Stack>
+          </FieldGroup>
+        </CardContent>
+        <FormFooter
+          isLoading={isLoading}
+          linkRedirect={AUTH_META.LOGIN}
+          actionError={resError}
+          actionSuccess={resSuccess}
+          buttonText={"Обновить пароль"}
+          buttonActionText={"Пароль обновляется..."}
+          descriptionText={"Хотите вернуться?"}
+          linkText={"Войти"}
+          buttonIcon={ArrowRight}
+        />
       </form>
-    </Flex>
+    </Card>
   );
 };

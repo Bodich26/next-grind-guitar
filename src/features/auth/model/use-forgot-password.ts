@@ -12,17 +12,12 @@ export const useForgotPassword = () => {
   const [resSuccess, setResSuccess] = React.useState<string>("");
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ForgotFormData>({
+  const { control, handleSubmit } = useForm<ForgotFormData>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: "",
     },
   });
-  const emailErrors = errors.email;
 
   const handleSubmitForm = handleSubmit(async (data: ForgotFormData) => {
     setIsLoading(true);
@@ -40,9 +35,8 @@ export const useForgotPassword = () => {
     }
   });
   return {
-    register,
+    control,
     handleSubmitForm,
-    emailErrors,
     resError,
     resSuccess,
     isLoading,
