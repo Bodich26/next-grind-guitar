@@ -1,17 +1,16 @@
 "use server";
 
 import { updatePasswordSchema } from "../../model/auth-schema";
-import { createClient } from "@/shared/lib/supabase/server";
 import { validationData } from "@/shared";
-import { AUTH_ROUTES } from "routes";
+import { AUTH_META } from "@/../routes";
+import { createClient } from "@/shared/lib/server";
 
 export async function updatePassword(formData: FormData, code: string) {
   const supabase = await createClient();
   const userData = Object.fromEntries(formData);
 
-  const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(
-    code
-  );
+  const { error: exchangeError } =
+    await supabase.auth.exchangeCodeForSession(code);
 
   if (exchangeError) {
     console.error(exchangeError);
@@ -21,7 +20,7 @@ export async function updatePassword(formData: FormData, code: string) {
   const { password } = validationData(
     updatePasswordSchema,
     userData,
-    AUTH_ROUTES.UPDATE_PASSWORD
+    AUTH_META.UPDATE_PASSWORD,
   );
 
   const { error } = await supabase.auth.updateUser({ password });

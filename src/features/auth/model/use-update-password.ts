@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { updatePassword } from "../api/actions";
 import { objectFormData, useRedirectTimer } from "@/shared";
 import { useSearchParams } from "next/navigation";
-import { AUTH_META } from "routes";
+import { AUTH_META } from "@/../routes";
 
 export const useUpdatePassword = () => {
   const searchParams = useSearchParams();
@@ -18,20 +18,15 @@ export const useUpdatePassword = () => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const { startRedirect } = useRedirectTimer(
     AUTH_META.AFTER_LOGIN_REDIRECT,
-    1000
+    1000,
   );
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<UpdateFormData>({
+  const { control, handleSubmit } = useForm<UpdateFormData>({
     resolver: zodResolver(updatePasswordSchema),
     defaultValues: {
       password: "",
     },
   });
-  const passwordErrors = errors.password;
 
   const handleSubmitForm = handleSubmit(async (data: UpdateFormData) => {
     setIsLoading(true);
@@ -55,9 +50,8 @@ export const useUpdatePassword = () => {
   });
 
   return {
-    register,
+    control,
     handleSubmitForm,
-    passwordErrors,
     resError,
     resSuccess,
     isLoading,

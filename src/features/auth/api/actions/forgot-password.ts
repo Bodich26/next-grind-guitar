@@ -2,7 +2,7 @@
 
 import { forgotPasswordSchema } from "../../model/auth-schema";
 import { validationData } from "@/shared";
-import { API_ROUTES } from "@/../routes";
+import { AUTH_META } from "@/../routes";
 import { createClient } from "@/shared/lib/server";
 
 export async function forgotPassword(formData: FormData) {
@@ -12,7 +12,7 @@ export async function forgotPassword(formData: FormData) {
   const { email } = validationData(
     forgotPasswordSchema,
     userData,
-    API_ROUTES.FORGOT_PASSWORD,
+    AUTH_META.FORGOT_PASSWORD,
   );
 
   const { error } = await supabase.auth.resetPasswordForEmail(email);

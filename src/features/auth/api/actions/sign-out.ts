@@ -8,5 +8,5 @@ export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
-  redirect(`${AUTH_META.PUBLIC_ACCESS}`);
+  redirect(`${AUTH_META.LOGIN}`);
 }
