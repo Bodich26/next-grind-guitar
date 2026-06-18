@@ -1,3 +1,5 @@
+import { Logo } from "@/shared";
+
 export const AuthWrapper = ({
   children,
 }: Readonly<{
@@ -19,13 +21,7 @@ export const AuthWrapper = ({
           <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-fuchsia-500/10" />
 
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-12">
-              <div className="w-12 h-12 bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-2xl flex items-center justify-center text-3xl shadow-xl shadow-violet-500/30">
-                🎸
-              </div>
-              <span className="text-3xl font-bold">Grind Guitar</span>
-            </div>
-
+            <Logo />
             <h1 className="text-5xl xl:text-6xl font-black mb-6">
               Стань Лучше
               <br />
@@ -52,15 +48,7 @@ export const AuthWrapper = ({
         <div className="flex-1 flex flex-col justify-center p-8 md:p-12 lg:p-16 bg-zinc-900">
           <div className="w-full max-w-md mx-auto">
             {/* Мобильный заголовок */}
-            <div className="flex lg:hidden items-center gap-3 mb-10">
-              <div className="w-10 h-10 bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-2xl flex items-center justify-center text-2xl">
-                🎸
-              </div>
-              <span className="text-2xl font-bold tracking-tight">
-                Grind Guitar
-              </span>
-            </div>
-
+            <Logo className="lg:hidden" />
             {children}
           </div>
         </div>
