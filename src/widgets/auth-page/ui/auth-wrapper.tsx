@@ -6,7 +6,7 @@ export const AuthWrapper = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 relative overflow-hidden">
       {/* Фоновый градиент */}
       <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950" />
 
@@ -21,7 +21,7 @@ export const AuthWrapper = ({
           <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-fuchsia-500/10" />
 
           <div className="relative z-10">
-            <Logo />
+            <Logo className="mb-12" />
             <h1 className="text-5xl xl:text-6xl font-black mb-6">
               Стань Лучше
               <br />
@@ -35,12 +35,12 @@ export const AuthWrapper = ({
 
           {/* Нижний блок */}
           <div className="relative z-10 pt-8">
-            <div className="flex gap-5 text-sm text-zinc-500">
-              <div>Техника</div>
-              <div>Рифы</div>
-              <div>Аккорды</div>
-              <div>Практика</div>
-            </div>
+            <ul className="flex gap-5 text-sm text-ring">
+              <li>Техника</li>
+              <li>Рифы</li>
+              <li>Аккорды</li>
+              <li>Практика</li>
+            </ul>
           </div>
         </div>
 
@@ -48,7 +48,7 @@ export const AuthWrapper = ({
         <div className="flex-1 flex flex-col justify-center p-8 md:p-12 lg:p-16 bg-zinc-900">
           <div className="w-full max-w-md mx-auto">
             {/* Мобильный заголовок */}
-            <Logo className="lg:hidden" />
+            <Logo className="lg:hidden mb-12" />
             {children}
           </div>
         </div>
