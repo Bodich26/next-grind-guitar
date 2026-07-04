@@ -37,7 +37,7 @@ export default function RootLayout({
         roboto.variable,
       )}
     >
-      <body className="min-h-full flex flex-col dark">{children}</body>
+      <body className="min-full flex flex-col">{children}</body>
     </html>
   );
 }
