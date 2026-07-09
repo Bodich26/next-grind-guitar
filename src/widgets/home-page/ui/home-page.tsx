@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
 import {
+  Button,
   Card,
   ChordPosition,
   Container,
   GuitarChordsDB,
+  Input,
   Instrument,
 } from "@/shared";
 import {
@@ -18,6 +20,7 @@ import {
 } from "lucide-react";
 import Chord from "@tombatossals/react-chords/lib/Chord";
 import guitarChordsRaw from "@tombatossals/chords-db/lib/guitar.json";
+import { TuningStringsList } from "@/features/tuned-string";
 
 const exercises = [
   {
@@ -146,6 +149,7 @@ export const HomePage = () => {
           positions: chord.positions,
         })),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredChords = React.useMemo(() => {
@@ -171,15 +175,16 @@ export const HomePage = () => {
   };
 
   return (
-    <Container className="py-6 flex flex-col md:flex-row gap-6">
+    <Container className="py-6 flex flex-col md:flex-row gap-6 min-h-screen bg-background text-foreground">
+      {/* Боковая панель (Библиотека) */}
       <Card
-        className={`gap-0 w-full md:w-80 border overflow-hidden md:transition-all md:duration-300 ${
+        className={`w-full md:w-80 border border-border bg-card text-card-foreground overflow-hidden md:transition-all md:duration-300 rounded-xl ${
           sidebarOpen ? "md:w-80" : "md:w-14"
         }`}
       >
-        <div className="px-4 pb-4 flex items-center justify-between border-b">
+        <div className="p-4 flex items-center justify-between border-b border-border">
           <h2
-            className={`font-semibold text-lg ${!sidebarOpen && "md:hidden"}`}
+            className={`font-bold text-lg tracking-tight ${!sidebarOpen && "md:hidden"}`}
           >
             Библиотека
           </h2>
@@ -188,30 +193,37 @@ export const HomePage = () => {
         <div className="p-3 space-y-6">
           {/* Упражнения */}
           <div className="flex flex-col h-80 overflow-hidden">
-            <div className="px-3 py-2 text-sm text-ring font-medium shrink-0">
-              МОИ УПРАЖНЕНИЯ
+            <div className="px-3 py-2 text-xs font-bold tracking-wider text-muted-foreground uppercase shrink-0">
+              Мои упражнения
             </div>
-            <div className="flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto pr-1 space-y-2 custom-scrollbar">
               {exercises
                 .filter((ex) => ex.type === "exercise")
                 .map((ex) => (
                   <div
                     key={ex.id}
-                    className="group bg-zinc-950 hover:bg-zinc-800 p-4 rounded-xl transition-all flex  justify-between items-center cursor-pointer"
+                    className="group bg-muted/40 hover:bg-muted border border-transparent hover:border-border p-3.5 rounded-lg transition-all flex justify-between items-center cursor-pointer"
                     onClick={() => openPlayer(ex)}
                   >
-                    <div className="flex-1">
-                      <div className="font-medium text-[15px]">{ex.title}</div>
-                      <div className="text-xs text-zinc-500">{ex.category}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-sm truncate">
+                        {ex.title}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-0.5">
+                        {ex.category}
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => completeExercise(ex)}
-                        className="p-2.5 bg-emerald-600/10 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded-xl transition"
-                      >
-                        <CheckCircle size={20} />
-                      </button>
-                    </div>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="h-8 w-8 rounded-md text-emerald-500 hover:text-emerald-600 hover:bg-emerald-500/10 shrink-0 ml-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        completeExercise(ex);
+                      }}
+                    >
+                      <CheckCircle className="w-4 h-4" />
+                    </Button>
                   </div>
                 ))}
             </div>
@@ -219,30 +231,37 @@ export const HomePage = () => {
 
           {/* Рифы */}
           <div className="flex flex-col h-80 overflow-hidden">
-            <div className="px-3 py-2 text-sm text-zinc-400 font-medium shrink-0">
-              ИЗУЧАЕМЫЕ РИФЫ
+            <div className="px-3 py-2 text-xs font-bold tracking-wider text-muted-foreground uppercase shrink-0">
+              Изучаемые рифы
             </div>
-            <div className="flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto pr-1 space-y-2 custom-scrollbar">
               {exercises
                 .filter((ex) => ex.type === "riff")
                 .map((ex) => (
                   <div
                     key={ex.id}
-                    className="group bg-zinc-950 hover:bg-zinc-800 p-4 rounded-xl transition-all flex justify-between items-center cursor-pointer"
+                    className="group bg-muted/40 hover:bg-muted border border-transparent hover:border-border p-3.5 rounded-lg transition-all flex justify-between items-center cursor-pointer"
                     onClick={() => console.log(ex)}
                   >
-                    <div className="flex-1">
-                      <div className="font-medium text-[15px]">{ex.title}</div>
-                      <div className="text-xs text-zinc-500">{ex.category}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-sm truncate">
+                        {ex.title}
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-0.5">
+                        {ex.category}
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => console.log(ex)}
-                        className="p-2.5 bg-emerald-600/10 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded-xl transition"
-                      >
-                        <CheckCircle size={20} />
-                      </button>
-                    </div>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="h-8 w-8 rounded-md text-emerald-500 hover:text-emerald-600 hover:bg-emerald-500/10 shrink-0 ml-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log(ex);
+                      }}
+                    >
+                      <CheckCircle className="w-4 h-4" />
+                    </Button>
                   </div>
                 ))}
             </div>
@@ -250,82 +269,97 @@ export const HomePage = () => {
         </div>
       </Card>
 
-      <Card className="flex-1 space-y-6">
+      {/* Основной контент */}
+      <div className="flex-1 space-y-6 min-w-0">
         {/* Таймер */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 md:p-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-5">
-            <Clock className="text-violet-400" size={36} />
+        <Card className="p-4 border border-border bg-card flex flex-col md:flex-row items-center justify-between gap-4 rounded-xl shadow-sm">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-primary/10 rounded-xl text-primary">
+              <Clock className="w-6 h-6" />
+            </div>
             <div>
-              <div className="text-sm text-zinc-400">Практика сегодня</div>
-              <div className="text-4xl font-mono font-bold tracking-tighter">
+              <div className="text-xs font-medium text-muted-foreground">
+                Практика сегодня
+              </div>
+              <div className="text-3xl font-mono font-bold tracking-tight">
                 {formatTime(time)}
               </div>
             </div>
           </div>
 
-          <div className="flex gap-3 w-full md:w-auto">
-            <button
+          <div className="flex gap-2 w-full md:w-auto">
+            <Button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="flex-1 md:flex-none px-4 py-2 bg-white text-black font-semibold rounded-xl hover:bg-amber-400 transition flex items-center justify-center gap-2"
+              className="flex-1 md:flex-none font-semibold px-5 h-10 shadow-sm"
             >
-              {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+              {isPlaying ? (
+                <Pause className="w-4 h-4 mr-2" />
+              ) : (
+                <Play className="w-4 h-4 mr-2" />
+              )}
               {isPlaying ? "Пауза" : "Начать"}
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => {
                 setTime(0);
                 setIsPlaying(false);
               }}
-              className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-xl transition"
+              variant="outline"
+              size="icon"
+              className="h-10 w-10 text-muted-foreground hover:text-foreground"
             >
-              <RotateCcw size={24} />
-            </button>
+              <RotateCcw className="w-4 h-4" />
+            </Button>
           </div>
-        </div>
+        </Card>
+
+        <TuningStringsList />
 
         {/* Библиотека аккордов */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <h2 className="text-2xl font-bold mb-4">Поиск аккордов</h2>
+        <Card className="p-5 border border-border bg-card rounded-xl shadow-sm">
+          <h3 className="text-lg font-bold tracking-tight">Поиск аккордов</h3>
 
           <div className="relative">
-            <Search className="absolute left-3 top-2 text-zinc-500" size={24} />
-            <input
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <Input
               type="text"
-              placeholder="Введите аккорд (например: C, Am, Fmaj7, Dm...)"
+              placeholder="Введите аккорд (например: C, Am, Fmaj7...)"
               value={chordSearch}
               onChange={(e) => setChordSearch(e.target.value)}
-              className="w-full bg-zinc-950 border border-zinc-700 pl-11 py-2 text-md rounded-xl focus:outline-none focus:border-violet-500 placeholder-zinc-500"
+              className="pl-9 bg-muted/30 focus-visible:ring-primary border-border h-10 rounded-lg placeholder:text-muted-foreground/60"
             />
           </div>
 
           {/* Результаты поиска */}
           {chordSearch.length > 0 && (
-            <div className="space-y-6 mt-8 overflow-auto h-80">
+            <div className="space-y-4 mt-6 overflow-auto h-80 pr-1 custom-scrollbar">
               {filteredChords.length > 0 ? (
                 filteredChords.map((chord, index) => (
                   <div
                     key={`${chord.name}-${index}`}
-                    className="bg-zinc-950 border border-zinc-800 rounded-xl p-5"
+                    className="bg-muted/20 border border-border rounded-xl p-4"
                   >
-                    <h3 className="text-3xl font-bold text-center mb-6">
+                    <h3 className="text-xl font-bold font-mono text-center mb-4 text-primary">
                       {chord.name}
                     </h3>
-                    <div className="flex flex-wrap gap-6 justify-center">
+                    <div className="flex flex-wrap gap-4 justify-center">
                       {chord.positions.map(
                         (position: ChordPosition, posIndex: number) => (
                           <div
                             key={posIndex}
-                            className="bg-zinc-900 rounded-xl p-4 hover:border-violet-500 border border-transparent transition"
+                            className="bg-card rounded-lg p-3 border border-border hover:border-primary/50 transition shadow-sm cursor-pointer"
                             onClick={() => setSelectedChord(position)}
                           >
-                            <Chord
-                              chord={position}
-                              instrument={instrument}
-                              size={130}
-                              lite={false}
-                            />
-
-                            <div className="text-center text-sm text-zinc-500 mt-2">
+                            {/* Инвертируем цвета для SVG аккордов под темную тему */}
+                            <div className="dark:invert dark:brightness-90">
+                              <Chord
+                                chord={position}
+                                instrument={instrument}
+                                size={120}
+                                lite={false}
+                              />
+                            </div>
+                            <div className="text-center text-[11px] text-muted-foreground font-medium mt-2">
                               Позиция {posIndex + 1}
                             </div>
                           </div>
@@ -335,70 +369,108 @@ export const HomePage = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-center mb-8 text-zinc-400">
+                <div className="text-center py-8 text-sm text-muted-foreground">
                   Аккорд не найден
                 </div>
               )}
             </div>
           )}
-        </div>
+        </Card>
 
-        {/* Календарь + Прогресс + Статистика */}
+        {/* Сетка: Календарь + Прогресс */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-7 bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-            <div className="flex justify-between mb-5">
-              <h3 className="font-semibold flex items-center gap-2 text-lg">
-                <CalendarIcon size={22} /> Активность
+          {/* Активность (Календарь) */}
+          <Card className="lg:col-span-7 p-5 border border-border bg-card rounded-xl shadow-sm">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-bold flex items-center gap-2 text-sm uppercase tracking-wider text-muted-foreground">
+                <CalendarIcon className="w-4 h-4 text-primary" /> Активность
               </h3>
-              <span className="text-emerald-400 font-medium">
-                {10} дней подряд 🔥
+              <span className="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">
+                {streak} дней подряд 🔥
               </span>
             </div>
-            <div className="grid grid-cols-7 gap-2">
-              {Array.from({ length: 28 }).map((_, i) => (
+
+            <div className="grid grid-cols-7 gap-1.5">
+              {Array.from({ length: 28 }).map((_, i) => {
+                const isActive = i % 3 === 0 || i % 5 === 0;
+                return (
+                  <div
+                    key={i}
+                    className={`aspect-square rounded-md flex items-center justify-center text-xs font-bold transition-all border ${
+                      isActive
+                        ? "bg-primary/20 text-primary border-primary/30"
+                        : "bg-muted/40 hover:bg-muted border-transparent text-muted-foreground"
+                    }`}
+                  >
+                    {i + 1}
+                  </div>
+                );
+              })}
+            </div>
+          </Card>
+
+          {/* Уровень */}
+          <Card className="lg:col-span-5 p-5 border border-border bg-card rounded-xl shadow-sm flex flex-col justify-between">
+            <div>
+              <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-2">
+                Прогресс уровня
+              </h3>
+              <div className="text-5xl font-mono font-black tracking-tight text-foreground">
+                {level}
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                текущий уровень гитариста
+              </div>
+            </div>
+            <div className="mt-6">
+              <div className="flex justify-between text-xs font-medium text-muted-foreground mb-1.5">
+                <span>Прогресс</span>
+                <span>68%</span>
+              </div>
+              {/* Используем системную переменную primary для заливки прогресса */}
+              <div className="h-2.5 bg-muted border border-border/50 rounded-full overflow-hidden">
                 <div
-                  key={i}
-                  className={`aspect-square rounded-xl flex items-center justify-center text-sm font-medium ${
-                    i % 3 === 0 || i % 5 === 0
-                      ? "bg-emerald-500/30 text-emerald-400"
-                      : "bg-zinc-950 hover:bg-zinc-800"
-                  }`}
-                >
-                  {i + 1}
-                </div>
-              ))}
+                  className="h-full bg-primary transition-all duration-500 rounded-full"
+                  style={{ width: "68%" }}
+                />
+              </div>
             </div>
-          </div>
-
-          <div className="lg:col-span-5 bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-            <h3 className="font-semibold mb-4">Прогресс уровня</h3>
-            <div className="text-6xl font-bold mb-1">{3}</div>
-            <div className="text-zinc-400 mb-6">текущий уровень</div>
-            <div className="h-3 bg-zinc-800 rounded-full overflow-hidden">
-              <div className="h-full w-[68%] bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-            </div>
-          </div>
+          </Card>
         </div>
 
-        {/* Общая статистика */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-          <h3 className="font-semibold text-lg mb-6">Общая статистика</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <div>
-              <div className="text-4xl font-bold">{2223}</div>
-              <div className="text-zinc-400">часов на гитаре</div>
+        {/* Статистика */}
+        <Card className="p-5 border border-border bg-card rounded-xl shadow-sm">
+          <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-6">
+            Общая статистика
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="p-4 bg-muted/20 border border-border/60 rounded-xl">
+              <div className="text-3xl font-mono font-bold text-foreground">
+                {totalHours}
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                часов на гитаре
+              </div>
             </div>
-            <div>
-              <div className="text-4xl font-bold">47</div>
-              <div className="text-zinc-400">упражнений выполнено</div>
+            <div className="p-4 bg-muted/20 border border-border/60 rounded-xl">
+              <div className="text-3xl font-mono font-bold text-foreground">
+                47
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                упражнений выполнено
+              </div>
             </div>
-            <div>
-              <div className="text-4xl font-bold">19</div>
-              <div className="text-zinc-400">рифов изучено</div>
+            <div className="p-4 bg-muted/20 border border-border/60 rounded-xl">
+              <div className="text-3xl font-mono font-bold text-foreground">
+                19
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                рифов изучено
+              </div>
             </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </Container>
   );
 };

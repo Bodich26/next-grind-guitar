@@ -7,3 +7,7 @@ export { FormFooter } from "./form-footer";
 export { FormHeader } from "./form-header";
 export { Logo } from "./logo";
 export { Container } from "./container";
+export * from "./tabs";
+export * from "./accordion";
+export * from "./select";
+export * from "./slider";
