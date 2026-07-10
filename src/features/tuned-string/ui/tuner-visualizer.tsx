@@ -1,33 +1,17 @@
 "use client";
-import { useTuningStringStore } from "../model/use-tuning-string-store";
-import { useAudioTuner } from "../model/use-audio-tuner";
-import { getCentsOff } from "@/shared";
+import { useTunedCalculation } from "../model/use-tuned-calculation";
 
 export const TunerVisualizer = () => {
-  const { selectedPreset, activeStringIndex, isTunerActive } =
-    useTuningStringStore();
-
-  const targetString = selectedPreset.strings[activeStringIndex];
-  const targetFreq = targetString.frequency;
-
-  // Слушаем живой микрофон
-  const liveFreq = useAudioTuner(isTunerActive, targetFreq);
-
-  // ИСПРАВЛЕНО: Никаких useEffect и useState.
-  // Если микрофон что-то поймал — берем liveFreq, если тишина — показываем целевую частоту.
-  const displayFreq = liveFreq !== null ? liveFreq : targetFreq;
-
-  const centsOff = getCentsOff(displayFreq, targetFreq);
-  const clampedCents = Math.max(-50, Math.min(50, centsOff));
-
-  // Если звука нет, стрелка стоит ровно по центру (50%)
-  const arrowPositionPercent =
-    isTunerActive && liveFreq !== null ? ((clampedCents + 50) / 100) * 100 : 50;
-
-  const isPerfect = liveFreq !== null && Math.abs(centsOff) <= 2;
-  const isSharp = liveFreq !== null && centsOff > 2;
-  const isFlat = liveFreq !== null && centsOff < -2;
-
+  const {
+    isPerfect,
+    targetString,
+    liveFreq,
+    displayFreq,
+    targetFreq,
+    arrowPositionPercent,
+    isFlat,
+    isSharp,
+  } = useTunedCalculation();
   return (
     <div>
       <div className="flex items-center justify-between w-full mb-3 px-1">

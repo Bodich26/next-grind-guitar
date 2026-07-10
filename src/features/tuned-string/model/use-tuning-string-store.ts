@@ -14,12 +14,9 @@ export const useTuningStringStore = create<TuningStringStore>()(
   devtools(
     (set) => ({
       ...defaultState,
-
       actions: {
         toggleTuner: () =>
           set((state) => ({ isTunerActive: !state.isTunerActive })),
-
-        // ИСПРАВЛЕНО: Добавлена буква "s", чтобы строго соответствовать TuningStringActions
         setStringsCount: (count) =>
           set((state) => {
             const firstPresetForCount =
@@ -28,11 +25,9 @@ export const useTuningStringStore = create<TuningStringStore>()(
             return {
               activeStringsCount: count,
               selectedPreset: firstPresetForCount,
-              activeStringIndex: 0, // сбрасываем на первую струну
+              activeStringIndex: 0,
             };
           }),
-
-        // Выбор конкретного строя (пресета) по ID
         setPreset: (presetId) =>
           set((state) => {
             const preset = TUNING_PRESETS.find((p) => p.id === presetId);
@@ -43,24 +38,18 @@ export const useTuningStringStore = create<TuningStringStore>()(
               activeStringIndex: 0,
             };
           }),
-
-        // Выбор конкретной струны кликом на UI
         setActiveStringIndex: (index) =>
           set((state) => {
             if (index < 0 || index >= state.selectedPreset.strings.length)
               return {};
             return { activeStringIndex: index };
           }),
-
-        // Переключение на следующую струну
         nextString: () =>
           set((state) => {
             const nextIndex = state.activeStringIndex + 1;
             if (nextIndex >= state.selectedPreset.strings.length) return {};
             return { activeStringIndex: nextIndex };
           }),
-
-        // Переключение на предыдущую струну
         prevString: () =>
           set((state) => {
             const prevIndex = state.activeStringIndex - 1;
