@@ -1,4 +1,3 @@
-// types/chords.ts
 export interface ChordPosition {
   frets: number[]; // массив ладов для каждой струны
   fingers: number[]; // массив пальцев

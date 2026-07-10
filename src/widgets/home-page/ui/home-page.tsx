@@ -175,10 +175,10 @@ export const HomePage = () => {
   };
 
   return (
-    <Container className="py-6 flex flex-col md:flex-row gap-6 min-h-screen bg-background text-foreground">
+    <Container className="py-6 flex flex-col md:flex-row items-stretch md:items-start gap-6 min-h-screen bg-background text-foreground">
       {/* Боковая панель (Библиотека) */}
       <Card
-        className={`w-full md:w-80 border border-border bg-card text-card-foreground overflow-hidden md:transition-all md:duration-300 rounded-xl ${
+        className={`w-full gap-0 md:w-80 border border-border bg-card text-card-foreground overflow-hidden md:transition-all md:duration-300 rounded-xl ${
           sidebarOpen ? "md:w-80" : "md:w-14"
         }`}
       >

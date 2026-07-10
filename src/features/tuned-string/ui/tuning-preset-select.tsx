@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared"; // подставь свой правильный путь к компонентам ShadCn
+} from "@/shared";
 import { TUNING_PRESETS } from "../model/tuning-string-date";
 import {
   useTuningStringActions,
@@ -17,7 +17,6 @@ export const TuningPresetSelect = () => {
   const { activeStringsCount, selectedPreset } = useTuningStringStore();
   const { setPreset } = useTuningStringActions();
 
-  // Фильтруем строи под текущее количество струн (6, 7 или 8)
   const availablePresets = TUNING_PRESETS.filter(
     (preset) => preset.stringsCount === activeStringsCount,
   );

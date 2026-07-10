@@ -35,7 +35,7 @@ export const TuningStringsList = () => {
 
         <AccordionContent className="pb-0">
           <div className="flex flex-col gap-2">
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between items-start flex-wrap gap-4">
               <StringsFilter />
               <TargetTunedButton
                 isTunerActive={isTunerActive}
