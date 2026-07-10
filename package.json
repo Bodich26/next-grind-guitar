@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "convex": "npx convex dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -14,6 +15,7 @@
     "@tombatossals/react-chords": "^0.2.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "convex": "^1.42.1",
     "lucide-react": "^1.17.0",
     "next": "16.2.7",
     "pitchfinder": "^2.3.4",

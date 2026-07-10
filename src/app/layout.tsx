@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/shared/lib/utils";
+import { ConvexClientProvider } from "@/shared";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -37,7 +38,9 @@ export default function RootLayout({
         roboto.variable,
       )}
     >
-      <body className="min-full flex flex-col dark">{children}</body>
+      <body className="min-full flex flex-col dark">
+        <ConvexClientProvider>{children}</ConvexClientProvider>
+      </body>
     </html>
   );
 }
