@@ -5,7 +5,7 @@
  * Серверные маршруты (используются для запросов)
  */
 export const API_ROUTES = {
-  BASE_URL: "",
+  BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   BASE_API: "/api",
   LOGIN: "/login",
   REGISTER: "/register",
