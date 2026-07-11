@@ -12,3 +12,5 @@ export * from "./accordion";
 export * from "./select";
 export * from "./slider";
 export * from "./convex-client-provider";
+export * from "./spinner";
+export * from "./dropdown-menu";
