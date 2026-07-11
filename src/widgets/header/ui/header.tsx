@@ -1,5 +1,14 @@
-import { Container, Logo } from "@/shared";
-import { Flame, Trophy } from "lucide-react";
+import { LogoutButton } from "@/features/auth";
+import {
+  Container,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Logo,
+} from "@/shared";
+import { Flame, User } from "lucide-react";
 
 export const Header = () => {
   return (
@@ -18,13 +27,20 @@ export const Header = () => {
             </div>
             <div className="text-3xl">⭐</div>
           </div>
-          <div className="flex items-center gap-2 border px-4 py-2 rounded-xl">
-            <Trophy className="text-yellow-400" size={20} />
-            <span className="font-bold">{433} XP</span>
-          </div>
-          <div className="w-8 h-8 bg-zinc-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-zinc-600">
-            👤
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="w-10 h-10 bg-zinc-800 border rounded-full flex items-center justify-center cursor-pointer hover:bg-zinc-700 transition-colors select-none">
+                <User size={18} className="text-zinc-400" />
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56 mt-2">
+              <DropdownMenuLabel>Мой профиль</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+
+              {/* Кнопка Выхода */}
+              <LogoutButton />
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </Container>
     </header>

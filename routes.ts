@@ -25,6 +25,11 @@ export const AUTH_META = {
  * ============================
  * Основные публичные страницы (фронтенд)
  */
+
+export const ADMIN_ROUTES = {
+  ADMIN: "/admin",
+} as const;
+
 export const PUBLIC_ROUTES = {
   HOME: "/",
   PROFILE: "/profile",
