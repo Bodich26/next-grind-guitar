@@ -20,6 +20,7 @@ export default defineSchema({
     xp: v.number(),
     type: v.union(v.literal("exercise"), v.literal("riff")),
     isCompleted: v.boolean(),
+    link: v.string(),
   }).index("by_user", ["userId"]),
 
   // 3. ГЛОБАЛЬНАЯ СТАТИСТИКА ПОЛЬЗОВАТЕЛЯ
