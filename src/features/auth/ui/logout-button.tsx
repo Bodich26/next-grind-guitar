@@ -13,7 +13,7 @@ export const LogoutButton = () => {
       className="text-destructive focus:text-destructive focus:bg-destructive/10 cursor-pointer gap-2 font-medium"
     >
       <LogOut size={16} />
-      <span>{isLoggingOut ? "Выхожу..." : "Выйти из аккаунта"}</span>
+      <span>Выйти</span>
     </DropdownMenuItem>
   );
 };

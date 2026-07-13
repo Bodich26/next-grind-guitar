@@ -11,7 +11,6 @@ import {
 } from "@/shared";
 import {
   CalendarIcon,
-  CheckCircle,
   Clock,
   Pause,
   Play,
@@ -21,84 +20,11 @@ import {
 import Chord from "@tombatossals/react-chords/lib/Chord";
 import guitarChordsRaw from "@tombatossals/chords-db/lib/guitar.json";
 import { TuningStringsList } from "@/features/tuned-string";
-
-const exercises = [
-  {
-    id: 1,
-    title: "Alternate Picking 120 BPM",
-    category: "Техника",
-    xp: 120,
-    type: "exercise" as const,
-  },
-  {
-    id: 2,
-    title: "Pentatonic Scale Runs",
-    category: "Скейлы",
-    xp: 90,
-    type: "exercise" as const,
-  },
-  {
-    id: 3,
-    title: "Sweep Picking Arpeggios",
-    category: "Арпеджио",
-    xp: 150,
-    type: "exercise" as const,
-  },
-  {
-    id: 4,
-    title: "Pentatonic Scale Runs",
-    category: "Скейлы",
-    xp: 90,
-    type: "exercise" as const,
-  },
-  {
-    id: 5,
-    title: "Sweep Picking Arpeggios",
-    category: "Арпеджио",
-    xp: 150,
-    type: "exercise" as const,
-  },
-  {
-    id: 6,
-    title: "Sweep Picking Arpeggios",
-    category: "Арпеджио",
-    xp: 150,
-    type: "exercise" as const,
-  },
-  {
-    id: 7,
-    title: "Anastasia - Slash Solo",
-    category: "Рифы",
-    xp: 200,
-    type: "riff" as const,
-  },
-  {
-    id: 8,
-    title: "Nothing Else Matters Solo",
-    category: "Рифы",
-    xp: 180,
-    type: "riff" as const,
-  },
-  {
-    id: 9,
-    title: "Anastasia - Slash Solo",
-    category: "Рифы",
-    xp: 200,
-    type: "riff" as const,
-  },
-  {
-    id: 10,
-    title: "Nothing Else Matters Solo",
-    category: "Рифы",
-    xp: 180,
-    type: "riff" as const,
-  },
-];
+import { ExercisesList } from "@/widgets/exercises-list";
 
 export const HomePage = () => {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [time, setTime] = React.useState(0);
-  const [sidebarOpen, setSidebarOpen] = React.useState(true);
 
   const [streak] = React.useState(14);
   const [totalHours] = React.useState(87);
@@ -176,99 +102,7 @@ export const HomePage = () => {
 
   return (
     <Container className="py-6 flex flex-col md:flex-row items-stretch md:items-start gap-6 min-h-screen bg-background text-foreground">
-      {/* Боковая панель (Библиотека) */}
-      <Card
-        className={`w-full gap-0 md:w-80 border border-border bg-card text-card-foreground overflow-hidden md:transition-all md:duration-300 rounded-xl ${
-          sidebarOpen ? "md:w-80" : "md:w-14"
-        }`}
-      >
-        <div className="p-4 flex items-center justify-between border-b border-border">
-          <h2
-            className={`font-bold text-lg tracking-tight ${!sidebarOpen && "md:hidden"}`}
-          >
-            Библиотека
-          </h2>
-        </div>
-
-        <div className="p-3 space-y-6">
-          {/* Упражнения */}
-          <div className="flex flex-col h-80 overflow-hidden">
-            <div className="px-3 py-2 text-xs font-bold tracking-wider text-muted-foreground uppercase shrink-0">
-              Мои упражнения
-            </div>
-            <div className="flex-1 overflow-y-auto pr-1 space-y-2 custom-scrollbar">
-              {exercises
-                .filter((ex) => ex.type === "exercise")
-                .map((ex) => (
-                  <div
-                    key={ex.id}
-                    className="group bg-muted/40 hover:bg-muted border border-transparent hover:border-border p-3.5 rounded-lg transition-all flex justify-between items-center cursor-pointer"
-                    onClick={() => openPlayer(ex)}
-                  >
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-sm truncate">
-                        {ex.title}
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-0.5">
-                        {ex.category}
-                      </div>
-                    </div>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      className="h-8 w-8 rounded-md text-emerald-500 hover:text-emerald-600 hover:bg-emerald-500/10 shrink-0 ml-2"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        completeExercise(ex);
-                      }}
-                    >
-                      <CheckCircle className="w-4 h-4" />
-                    </Button>
-                  </div>
-                ))}
-            </div>
-          </div>
-
-          {/* Рифы */}
-          <div className="flex flex-col h-80 overflow-hidden">
-            <div className="px-3 py-2 text-xs font-bold tracking-wider text-muted-foreground uppercase shrink-0">
-              Изучаемые рифы
-            </div>
-            <div className="flex-1 overflow-y-auto pr-1 space-y-2 custom-scrollbar">
-              {exercises
-                .filter((ex) => ex.type === "riff")
-                .map((ex) => (
-                  <div
-                    key={ex.id}
-                    className="group bg-muted/40 hover:bg-muted border border-transparent hover:border-border p-3.5 rounded-lg transition-all flex justify-between items-center cursor-pointer"
-                    onClick={() => console.log(ex)}
-                  >
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-sm truncate">
-                        {ex.title}
-                      </div>
-                      <div className="text-xs text-muted-foreground mt-0.5">
-                        {ex.category}
-                      </div>
-                    </div>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      className="h-8 w-8 rounded-md text-emerald-500 hover:text-emerald-600 hover:bg-emerald-500/10 shrink-0 ml-2"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        console.log(ex);
-                      }}
-                    >
-                      <CheckCircle className="w-4 h-4" />
-                    </Button>
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div>
-      </Card>
-
+      <ExercisesList />
       {/* Основной контент */}
       <div className="flex-1 space-y-6 min-w-0">
         {/* Таймер */}

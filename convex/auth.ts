@@ -1,11 +1,13 @@
+// convex/auth.ts
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
+// 1. Мутация регистрации: теперь принимает еще и хэш пароля
 export const signUpUser = mutation({
   args: {
     name: v.string(),
     email: v.string(),
-    password: v.optional(v.string()),
+    password: v.optional(v.string()), // <-- принимаем пароль
     tokenIdentifier: v.string(),
   },
   handler: async (ctx, args) => {
@@ -18,16 +20,14 @@ export const signUpUser = mutation({
 
     if (existing) return existing._id;
 
-    // 1. Создаем самого пользователя
     const userId = await ctx.db.insert("users", {
       name: args.name,
       email: args.email,
-      password: args.password,
+      password: args.password, // <-- сохраняем хэш пароля в базу
       role: "user",
       tokenIdentifier: args.tokenIdentifier,
     });
 
-    // 2. Инициализируем его гитарную статистику (Грайнд-старт!)
     await ctx.db.insert("usersStats", {
       userId,
       level: 1,
@@ -42,15 +42,14 @@ export const signUpUser = mutation({
   },
 });
 
-// Запрос для поиска юзера по его токену сессии
-export const getUserByToken = query({
-  args: { tokenIdentifier: v.string() },
+// 2. Новый запрос для Better-Auth: поиск пользователя по Email при входе
+export const getUserByEmail = query({
+  args: { email: v.string() },
   handler: async (ctx, args) => {
+    // Ищем юзера по email
     return await ctx.db
       .query("users")
-      .withIndex("by_token", (q) =>
-        q.eq("tokenIdentifier", args.tokenIdentifier),
-      )
+      .filter((q) => q.eq(q.field("email"), args.email))
       .unique();
   },
 });
