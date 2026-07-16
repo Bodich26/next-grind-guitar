@@ -7,11 +7,11 @@ export interface TunedString {
 export interface TuningPreset {
   id: string;
   name: string;
-  stringsCount: 6 | 7 | 8;
+  stringsCount: 4 | 6 | 7 | 8;
   strings: TunedString[];
 }
 export interface TuningStringState {
-  activeStringsCount: 6 | 7 | 8;
+  activeStringsCount: 4 | 6 | 7 | 8;
   selectedPreset: TuningPreset;
   activeStringIndex: number;
   isTunerActive: boolean;
