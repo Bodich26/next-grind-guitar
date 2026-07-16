@@ -14,6 +14,7 @@ export const StringsFilter = () => {
       onValueChange={(v) => setStringsCount(Number(v) as 6 | 7 | 8)}
     >
       <TabsList>
+        <TabsTrigger value="4">Скрипка (4)</TabsTrigger>
         <TabsTrigger value="6">6 Струн</TabsTrigger>
         <TabsTrigger value="7">7 Струн</TabsTrigger>
         <TabsTrigger value="8">8 Струн</TabsTrigger>

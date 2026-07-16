@@ -103,4 +103,15 @@ export const TUNING_PRESETS: TuningPreset[] = [
       { number: 8, note: "E", octave: 1, frequency: 41.2 },
     ],
   },
+  {
+    id: "4-violin-standard",
+    name: "Violin Standard",
+    stringsCount: 4,
+    strings: [
+      { number: 1, note: "E", octave: 5, frequency: 659.25 }, // Ми 2-й октавы
+      { number: 2, note: "A", octave: 4, frequency: 440.0 }, // Ля 1-й октавы
+      { number: 3, note: "D", octave: 4, frequency: 293.66 }, // Ре 1-й октавы
+      { number: 4, note: "G", octave: 3, frequency: 196.0 }, // Соль малой октавы
+    ],
+  },
 ];
