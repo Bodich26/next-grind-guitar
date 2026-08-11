@@ -3,5 +3,5 @@ export { validationData } from "./lib/validation-data";
 export * from "./hooks";
 export * from "./ui";
 export * from "./types/chords-type";
-export * from "./lib/auth";
 export * from "./lib/auth-client";
+export * from './lib/auth-server'

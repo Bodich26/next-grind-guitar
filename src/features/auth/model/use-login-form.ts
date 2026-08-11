@@ -37,7 +37,7 @@ export const useLoginForm = () => {
         },
         onError: (ctx) => {
           setLoadingForm(false);
-          setErrorForm(ctx.error.message || "Произошла ошибка при регистрации");
+          setErrorForm(ctx.error.message || "Произошла ошибка при входе");
         },
       },
     );

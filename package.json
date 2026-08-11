@@ -10,6 +10,7 @@
     "convex": "npx convex dev"
   },
   "dependencies": {
+    "@convex-dev/better-auth": "^0.12.5",
     "@hookform/resolvers": "^5.4.0",
     "@tombatossals/chords-db": "^0.5.1",
     "@tombatossals/react-chords": "^0.2.10",
@@ -32,7 +33,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.19.43",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
