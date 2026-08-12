@@ -1,3 +1,4 @@
+"use client";
 import { LogoutButton } from "@/features/auth";
 import {
   Container,
@@ -9,24 +10,38 @@ import {
   Logo,
 } from "@/shared";
 import { Flame, User } from "lucide-react";
+import { useHeaderData } from "../model/use-header-data";
+import { HeaderSkeleton } from "./header-skeleton";
 
 export const Header = () => {
+  const { stats, isLoading } = useHeaderData();
+
   return (
     <header className="border-b bg-card sticky top-0 z-50">
       <Container className="flex justify-between items-center py-4">
         <Logo />
         <div className="flex items-center gap-4 md:gap-6">
-          <div className="hidden sm:flex items-center gap-2 border px-4 py-2 rounded-xl">
-            <Flame className="text-orange-500" size={20} />
-            <span className="font-semibold">{10} дней</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <div className="text-xs text-ring">УРОВЕНЬ</div>
-              <div className="font-bold text-2xl">{3}</div>
+          {isLoading ? (
+            <HeaderSkeleton />
+          ) : !stats ? (
+            <div className="font-semibold text-md">
+              Ошибка получения статистики
             </div>
-            <div className="text-3xl">⭐</div>
-          </div>
+          ) : (
+            <>
+              <div className="hidden sm:flex items-center gap-2 border px-4 py-2 rounded-xl">
+                <Flame className="text-orange-500" size={20} />
+                <span className="font-semibold">{stats.streak} дней</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="text-right">
+                  <div className="text-xs text-ring">УРОВЕНЬ</div>
+                  <div className="font-bold text-xl">{stats.level}</div>
+                </div>
+                <div className="text-2xl">⭐</div>
+              </div>
+            </>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className="w-10 h-10 bg-zinc-800 border rounded-full flex items-center justify-center cursor-pointer hover:bg-zinc-700 transition-colors select-none">
@@ -36,8 +51,6 @@ export const Header = () => {
             <DropdownMenuContent align="end" className="w-56 mt-2">
               <DropdownMenuLabel>Мой профиль</DropdownMenuLabel>
               <DropdownMenuSeparator />
-
-              {/* Кнопка Выхода */}
               <LogoutButton />
             </DropdownMenuContent>
           </DropdownMenu>
