@@ -17,7 +17,6 @@ const siteUrl =
   process.env.BETTER_AUTH_URL ||
   "http://localhost:3000";
 
-// Better Auth Component
 export const authComponent = createClient<DataModel, typeof schema>(
   components.betterAuth,
   {
@@ -26,16 +25,14 @@ export const authComponent = createClient<DataModel, typeof schema>(
   },
 );
 
-// Better Auth Options
 export const createAuthOptions = (ctx: GenericCtx<DataModel>) => {
   return {
     appName: "My App",
     baseURL: siteUrl,
     secret: process.env.BETTER_AUTH_SECRET,
-    // 👇 Добавляем разрешенные домены для защиты от CSRF/CORS
     trustedOrigins: [
-      "https://next-grind-guitar.vercel.app", // Твой боевой домен
-      "http://localhost:3000", // Для локальной разработки
+      "https://next-grind-guitar.vercel.app",
+      "http://localhost:3000",
     ],
     database: authComponent.adapter(ctx),
     emailAndPassword: {
@@ -62,10 +59,7 @@ export const createAuthOptions = (ctx: GenericCtx<DataModel>) => {
   } satisfies BetterAuthOptions;
 };
 
-// For `auth` CLI
 export const options = createAuthOptions({} as GenericCtx<DataModel>);
-
-// Better Auth Instance
 export const createAuth = (ctx: GenericCtx<DataModel>) => {
   return betterAuth(createAuthOptions(ctx));
 };
