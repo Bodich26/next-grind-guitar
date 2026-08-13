@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import {
-  Button,
   Card,
   ChordPosition,
   Container,
@@ -9,23 +8,14 @@ import {
   Input,
   Instrument,
 } from "@/shared";
-import {
-  CalendarIcon,
-  Clock,
-  Pause,
-  Play,
-  RotateCcw,
-  Search,
-} from "lucide-react";
+import { CalendarIcon, Search } from "lucide-react";
 import Chord from "@tombatossals/react-chords/lib/Chord";
 import guitarChordsRaw from "@tombatossals/chords-db/lib/guitar.json";
 import { TuningStringsList } from "@/features/tuned-string";
 import { ExercisesList } from "@/widgets/exercises-list";
+import { TimerPractice } from "@/features/timer-practice";
 
 export const HomePage = () => {
-  const [isPlaying, setIsPlaying] = React.useState(false);
-  const [time, setTime] = React.useState(0);
-
   const [streak] = React.useState(14);
   const [totalHours] = React.useState(87);
   const [level] = React.useState(12);
@@ -37,22 +27,7 @@ export const HomePage = () => {
   const [selectedChord, setSelectedChord] =
     React.useState<ChordPosition | null>(null);
   const [chordSearch, setChordSearch] = React.useState("");
-
   const guitarChords = guitarChordsRaw as GuitarChordsDB;
-
-  React.useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isPlaying) {
-      interval = setInterval(() => setTime((t) => t + 1), 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isPlaying]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  };
 
   const instrument: Instrument = {
     strings: 6,
@@ -105,48 +80,7 @@ export const HomePage = () => {
       <ExercisesList />
       {/* Основной контент */}
       <div className="flex-1 space-y-6 min-w-0">
-        {/* Таймер */}
-        <Card className="p-4 border border-border bg-card flex flex-col md:flex-row items-center justify-between gap-4 rounded-xl shadow-sm">
-          <div className="flex items-center gap-4">
-            <div className="p-3 bg-primary/10 rounded-xl text-primary">
-              <Clock className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="text-xs font-medium text-muted-foreground">
-                Практика сегодня
-              </div>
-              <div className="text-3xl font-mono font-bold tracking-tight">
-                {formatTime(time)}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex gap-2 w-full md:w-auto">
-            <Button
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="flex-1 md:flex-none font-semibold px-5 h-10 shadow-sm"
-            >
-              {isPlaying ? (
-                <Pause className="w-4 h-4 mr-2" />
-              ) : (
-                <Play className="w-4 h-4 mr-2" />
-              )}
-              {isPlaying ? "Пауза" : "Начать"}
-            </Button>
-            <Button
-              onClick={() => {
-                setTime(0);
-                setIsPlaying(false);
-              }}
-              variant="outline"
-              size="icon"
-              className="h-10 w-10 text-muted-foreground hover:text-foreground"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </Button>
-          </div>
-        </Card>
-
+        <TimerPractice />
         <TuningStringsList />
 
         {/* Библиотека аккордов */}
