@@ -25,7 +25,7 @@ export default defineSchema({
     currentXp: v.number(),
     completedExercisesCount: v.number(),
     completedRiffsCount: v.number(),
-    totalMinutes: v.number(),
+    totalSeconds: v.number(),
     streak: v.number(),
     lastPracticeDate: v.optional(v.string()),
   }).index("by_user", ["userId"]),
@@ -33,7 +33,7 @@ export default defineSchema({
   practiceSessions: defineTable({
     userId: v.id("users"),
     date: v.string(),
-    durationMinutes: v.number(),
+    durationSeconds: v.number(),
     xpEarned: v.number(),
   })
     .index("by_user", ["userId"])

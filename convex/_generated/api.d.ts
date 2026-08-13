@@ -9,9 +9,11 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as functions_savePracticeTimer from "../functions/savePracticeTimer.js";
 import type * as functions_userStats from "../functions/userStats.js";
 import type * as functions_users from "../functions/users.js";
 import type * as http from "../http.js";
+import type * as utils from "../utils.js";
 
 import type {
   ApiFromModules,
@@ -21,9 +23,11 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  "functions/savePracticeTimer": typeof functions_savePracticeTimer;
   "functions/userStats": typeof functions_userStats;
   "functions/users": typeof functions_users;
   http: typeof http;
+  utils: typeof utils;
 }>;
 
 /**

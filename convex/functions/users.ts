@@ -21,7 +21,7 @@ export const createUserProfileAfterSignup = internalMutation({
       currentXp: 0,
       completedExercisesCount: 0,
       completedRiffsCount: 0,
-      totalMinutes: 0,
+      totalSeconds: 0,
       streak: 0,
     });
 
