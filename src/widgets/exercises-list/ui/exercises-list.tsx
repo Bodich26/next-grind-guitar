@@ -5,6 +5,7 @@ import { Card, ErrorMessage, StatusMessage } from "@/shared";
 import { ExercisesListSkeleton } from "./exercises-list-skeleton";
 import {
   ExercisesCompletingButton,
+  ExercisesCreatingButton,
   ExercisesDeleteButton,
 } from "@/features/exercises-control";
 
@@ -66,6 +67,7 @@ export const ExercisesList = () => {
           </>
         )}
       </div>
+      <ExercisesCreatingButton />
     </Card>
   );
 };
