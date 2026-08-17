@@ -9,7 +9,7 @@ export const TimerSaveButton = ({ onClick, disabled }: Props) => {
   return (
     <Button
       disabled={disabled}
-      onClick={() => onClick()}
+      onClick={onClick}
       className="flex-1 md:flex-none font-semibold px-5 h-10 shadow-sm"
     >
       <Save />

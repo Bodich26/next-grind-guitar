@@ -7,6 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  ErrorMessage,
   Logo,
 } from "@/shared";
 import { Flame, User } from "lucide-react";
@@ -24,9 +25,7 @@ export const Header = () => {
           {isLoading ? (
             <HeaderSkeleton />
           ) : !stats ? (
-            <div className="font-semibold text-md">
-              Ошибка получения статистики
-            </div>
+            <ErrorMessage message={"Ошибка получения статистики"} />
           ) : (
             <>
               <div className="hidden sm:flex items-center gap-2 border px-4 py-2 rounded-xl">

@@ -57,6 +57,6 @@ export const savePracticeTimer = mutation({
       });
     }
 
-    return { success: true, earnedXp };
+    return { success: true, earnedXp, message: "Результат практики сохранен" };
   },
 });

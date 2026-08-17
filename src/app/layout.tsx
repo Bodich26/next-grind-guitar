@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/shared/lib/utils";
-import { ConvexClientProvider, getToken } from "@/shared";
+import { ConvexClientProvider, getToken, Toaster } from "@/shared";
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -26,7 +26,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const token = await getToken();
   return (
     <html
@@ -41,7 +40,10 @@ export default async function RootLayout({
       )}
     >
       <body className="min-full flex flex-col dark">
-        <ConvexClientProvider initialToken={token}>{children}</ConvexClientProvider>
+        <ConvexClientProvider initialToken={token}>
+          {children}
+        </ConvexClientProvider>
+        <Toaster />
       </body>
     </html>
   );
