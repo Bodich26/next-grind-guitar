@@ -6,6 +6,7 @@ import { TimerResetButton } from "./timer-reset-button";
 import { TimerToggleButton } from "./timer-toggle-button";
 import { TimerSaveButton } from "./timer-save-button";
 import { useTimerSavingPractice } from "../model/use-timer-saving-practice";
+import { toast } from "sonner";
 
 export const TimerPractice = () => {
   const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
@@ -18,6 +19,15 @@ export const TimerPractice = () => {
     setIsPlaying,
     setIsSaving,
   });
+
+  const handleClick = async () => {
+    const res = await handleSave();
+    if (res?.success) {
+      toast.success(res.message || "Результат практики сохранен");
+    } else {
+      toast.error(res?.message || "Не сохранить результат практики");
+    }
+  };
 
   React.useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -50,8 +60,8 @@ export const TimerPractice = () => {
       </div>
 
       <div className="flex gap-2 w-full md:w-auto">
-        {time > 0 && (
-          <TimerSaveButton onClick={handleSave} disabled={isSaving} />
+        {time > 300 && (
+          <TimerSaveButton onClick={handleClick} disabled={isSaving} />
         )}
 
         <TimerToggleButton setIsPlaying={setIsPlaying} isPlaying={isPlaying} />

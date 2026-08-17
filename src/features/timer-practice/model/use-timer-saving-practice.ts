@@ -30,6 +30,8 @@ export const useTimerSavingPractice = ({
       if (result && result.success) {
         setTime(0);
       }
+
+      return result;
     } catch (error) {
       console.error("Ошибка при сохранении практики:", error);
     } finally {
