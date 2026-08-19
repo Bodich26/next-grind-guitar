@@ -5,8 +5,8 @@ import { Card, ErrorMessage, StatusMessage } from "@/shared";
 import { ExercisesListSkeleton } from "./exercises-list-skeleton";
 import {
   ExercisesCompletingButton,
-  ExercisesCreatingButton,
   ExercisesDeleteButton,
+  ExercisesDialogForm,
 } from "@/features/exercises-control";
 
 export const ExercisesList = () => {
@@ -67,7 +67,7 @@ export const ExercisesList = () => {
           </>
         )}
       </div>
-      <ExercisesCreatingButton />
+      {!isLoading && <ExercisesDialogForm />}
     </Card>
   );
 };

@@ -7,7 +7,7 @@ export const useExercisesCompleting = (
   isCompleted: boolean,
 ) => {
   const completingExercisesMutation = useMutation(
-    api.functions.exercises.completeExercise,
+    api.functions.exercises.completeExercises,
   );
 
   const handleCompleting = async () => {

@@ -1,6 +1,4 @@
 import { ExercisesItem } from "@/entities/exercises";
-import { ExercisesCompletingButton } from "@/features/exercises-control";
-import { ExercisesDeleteButton } from "@/features/exercises-control";
 import { Doc } from "@/../convex/_generated/dataModel";
 
 type Props = {
