@@ -12,13 +12,13 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
+  FormStatus,
   Input,
   Spinner,
 } from "@/shared";
 import { useLoginForm } from "../model/use-login-form";
 import Link from "next/link";
 import { AUTH_META } from "@/../routes";
-import { FormStatus } from "./status-form";
 
 export const LoginForm = () => {
   const {

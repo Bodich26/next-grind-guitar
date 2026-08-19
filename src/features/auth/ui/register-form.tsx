@@ -12,13 +12,13 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
+  FormStatus,
   Input,
   Spinner,
 } from "@/shared";
 import { useRegisterForm } from "../model/use-register-form";
 import Link from "next/link";
 import { AUTH_META } from "@/../routes";
-import { FormStatus } from "./status-form";
 
 export const RegisterForm = () => {
   const {

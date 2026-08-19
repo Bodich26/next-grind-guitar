@@ -52,7 +52,7 @@ export const deleteExercises = mutation({
   },
 });
 
-export const completeExercise = mutation({
+export const completeExercises = mutation({
   args: {
     _id: v.id("exercises"),
     isCompleted: v.boolean(),
@@ -108,5 +108,41 @@ export const completeExercise = mutation({
     }
 
     return { success: true, message: "Задача успешно выполнена" };
+  },
+});
+
+export const createExercises = mutation({
+  args: {
+    title: v.string(),
+    category: v.string(),
+    xp: v.number(),
+    type: v.union(v.literal("exercise"), v.literal("riff")),
+    link: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.subject))
+      .unique();
+    if (!user) return null;
+
+    const exerciseId = await ctx.db.insert("exercises", {
+      userId: user._id,
+      title: args.title,
+      category: args.category,
+      xp: args.xp,
+      type: args.type,
+      link: args.link,
+      isCompleted: false,
+    });
+
+    return {
+      success: true,
+      message: "Задача успешно создана",
+      exerciseId,
+    };
   },
 });

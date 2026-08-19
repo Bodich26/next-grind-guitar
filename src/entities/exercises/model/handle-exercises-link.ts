@@ -1,7 +1,7 @@
-import { IExercisesItem } from "./exercises-type";
+import { Doc } from "@/../convex/_generated/dataModel";
 
 type Props = {
-  ex: IExercisesItem;
+  ex: Doc<"exercises">;
   openPlayer: (url: string) => void;
 };
 
