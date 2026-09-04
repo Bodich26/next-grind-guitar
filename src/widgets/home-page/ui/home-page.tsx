@@ -14,6 +14,7 @@ import guitarChordsRaw from "@tombatossals/chords-db/lib/guitar.json";
 import { TuningStringsList } from "@/features/tuned-string";
 import { ExercisesList } from "@/widgets/exercises-list";
 import { TimerPractice } from "@/features/timer-practice";
+import { ProgressionItem } from "@/entities/progression";
 
 export const HomePage = () => {
   const [streak] = React.useState(14);
@@ -178,32 +179,7 @@ export const HomePage = () => {
           </Card>
 
           {/* Уровень */}
-          <Card className="lg:col-span-5 p-5 border border-border bg-card rounded-xl shadow-sm flex flex-col justify-between">
-            <div>
-              <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-2">
-                Прогресс уровня
-              </h3>
-              <div className="text-5xl font-mono font-black tracking-tight text-foreground">
-                {level}
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">
-                текущий уровень гитариста
-              </div>
-            </div>
-            <div className="mt-6">
-              <div className="flex justify-between text-xs font-medium text-muted-foreground mb-1.5">
-                <span>Прогресс</span>
-                <span>68%</span>
-              </div>
-              {/* Используем системную переменную primary для заливки прогресса */}
-              <div className="h-2.5 bg-muted border border-border/50 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-primary transition-all duration-500 rounded-full"
-                  style={{ width: "68%" }}
-                />
-              </div>
-            </div>
-          </Card>
+          <ProgressionItem />
         </div>
 
         {/* Статистика */}
