@@ -25,7 +25,6 @@ export const TuningStringsList = () => {
     <Accordion
       type="single"
       collapsible
-      defaultValue="TunedStrings"
       className="p-5 border border-border bg-card rounded-xl shadow-sm"
     >
       <AccordionItem value="TunedStrings" className="border-none">
