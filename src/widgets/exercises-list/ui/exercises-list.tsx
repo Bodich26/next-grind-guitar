@@ -11,7 +11,7 @@ import {
 
 export const ExercisesList = () => {
   const [sidebarOpen, setSidebarOpen] = React.useState(true);
-  const { exercises, isLoading } = useGetExercisesList();
+  const { exercises, isLoading, isError } = useGetExercisesList();
 
   const exerciseList = exercises?.filter((ex) => ex.type === "exercise") || [];
   const riffList = exercises?.filter((ex) => ex.type === "riff") || [];
@@ -32,7 +32,7 @@ export const ExercisesList = () => {
       <div className="p-3 space-y-6">
         {isLoading ? (
           <ExercisesListSkeleton />
-        ) : !exercises ? (
+        ) : !exercises || isError ? (
           <ErrorMessage message={"Произошла ошибка при загрузке"} />
         ) : exercises.length === 0 ? (
           <StatusMessage message="У вас пустая бибилиотека" />

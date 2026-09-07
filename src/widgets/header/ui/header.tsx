@@ -15,7 +15,7 @@ import { useHeaderData } from "../model/use-header-data";
 import { HeaderSkeleton } from "./header-skeleton";
 
 export const Header = () => {
-  const { stats, isLoading } = useHeaderData();
+  const { stats, isLoading, isError } = useHeaderData();
 
   return (
     <header className="border-b bg-card sticky top-0 z-50">
@@ -24,7 +24,7 @@ export const Header = () => {
         <div className="flex items-center gap-4 md:gap-6">
           {isLoading ? (
             <HeaderSkeleton />
-          ) : !stats ? (
+          ) : !stats || isError ? (
             <ErrorMessage message={"Ошибка получения статистики"} />
           ) : (
             <>
