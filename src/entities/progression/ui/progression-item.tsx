@@ -9,7 +9,7 @@ export const ProgressionItem = () => {
     return <ProgressionSkeleton />;
   }
 
-  if (!progression) {
+  if (progression.isError) {
     return (
       <Card className="lg:col-span-5 p-5 border border-border bg-card rounded-xl shadow-sm">
         <ErrorMessage message="Ошибка получения уровня" />

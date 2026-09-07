@@ -15,6 +15,7 @@ import { TuningStringsList } from "@/features/tuned-string";
 import { ExercisesList } from "@/widgets/exercises-list";
 import { TimerPractice } from "@/features/timer-practice";
 import { ProgressionItem } from "@/entities/progression";
+import { GeneralStatistics } from "@/widgets/general-statistics";
 
 export const HomePage = () => {
   const [streak] = React.useState(14);
@@ -79,12 +80,9 @@ export const HomePage = () => {
   return (
     <Container className="py-6 flex flex-col md:flex-row items-stretch md:items-start gap-6 min-h-screen bg-background text-foreground">
       <ExercisesList />
-      {/* Основной контент */}
       <div className="flex-1 space-y-6 min-w-0">
         <TimerPractice />
         <TuningStringsList />
-
-        {/* Библиотека аккордов */}
         <Card className="p-5 border border-border bg-card rounded-xl shadow-sm">
           <h3 className="text-lg font-bold tracking-tight">Поиск аккордов</h3>
 
@@ -177,43 +175,9 @@ export const HomePage = () => {
               })}
             </div>
           </Card>
-
-          {/* Уровень */}
           <ProgressionItem />
         </div>
-
-        {/* Статистика */}
-        <Card className="p-5 border border-border bg-card rounded-xl shadow-sm">
-          <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-6">
-            Общая статистика
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="p-4 bg-muted/20 border border-border/60 rounded-xl">
-              <div className="text-3xl font-mono font-bold text-foreground">
-                {totalHours}
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">
-                часов на гитаре
-              </div>
-            </div>
-            <div className="p-4 bg-muted/20 border border-border/60 rounded-xl">
-              <div className="text-3xl font-mono font-bold text-foreground">
-                47
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">
-                упражнений выполнено
-              </div>
-            </div>
-            <div className="p-4 bg-muted/20 border border-border/60 rounded-xl">
-              <div className="text-3xl font-mono font-bold text-foreground">
-                19
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">
-                рифов изучено
-              </div>
-            </div>
-          </div>
-        </Card>
+        <GeneralStatistics />
       </div>
     </Container>
   );

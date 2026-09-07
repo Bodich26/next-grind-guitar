@@ -1,7 +1,7 @@
 import { useCurrentUserXp } from "./use-current-user-xp";
 
 export const useProgression = () => {
-  const { currentXp, isLoading } = useCurrentUserXp();
+  const { currentXp, isLoading, isError } = useCurrentUserXp();
 
   let level = 1;
   let xpForNextLevel = 100;
@@ -22,6 +22,7 @@ export const useProgression = () => {
     totalXpRequired,
     xpForNextLevel,
     isLoading,
+    isError,
     progressPercent,
     progressXp,
   };
