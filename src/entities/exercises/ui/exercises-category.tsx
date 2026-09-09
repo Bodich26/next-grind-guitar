@@ -21,12 +21,7 @@ export const ExercisesCategory = ({
       </div>
       <div className="flex flex-col py-1 px-1 gap-3">
         {exercises.map((ex) => (
-          <ExercisesItem
-            key={ex._id}
-            ex={ex}
-            openPlayer={() => {}}
-            children={renderActions(ex)}
-          />
+          <ExercisesItem key={ex._id} ex={ex} children={renderActions(ex)} />
         ))}
       </div>
     </div>

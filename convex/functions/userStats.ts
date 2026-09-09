@@ -21,7 +21,6 @@ export const getHeaderData = query({
       name: user.name,
       pictureUrl: user.pictureUrl,
       role: user.role,
-      level: stats?.level ?? 1,
       streak: stats?.streak ?? 0,
     };
   },
