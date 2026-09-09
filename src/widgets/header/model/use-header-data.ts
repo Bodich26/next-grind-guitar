@@ -15,9 +15,7 @@ export function useHeaderData() {
           role: headerData.role,
         }
       : null,
-    stats: headerData
-      ? { level: headerData.level, streak: headerData.streak }
-      : null,
+    stats: headerData ? { streak: headerData.streak } : null,
     isLoading,
     isError,
   };

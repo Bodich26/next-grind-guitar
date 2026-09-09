@@ -1,30 +1,31 @@
 import { Card } from "@/shared";
-import { handelExercisesLink } from "../model/handle-exercises-link";
 import { Doc } from "@/../convex/_generated/dataModel";
+import Link from "next/link";
+import { cn } from "@/shared";
 
 type Props = {
   ex: Doc<"exercises">;
-  openPlayer: (url: string) => void;
   children: React.ReactNode;
 };
 
-export const ExercisesItem = ({ ex, openPlayer, children }: Props) => {
-  const { handleCardClick } = handelExercisesLink({ openPlayer, ex });
+export const ExercisesItem = ({ ex, children }: Props) => {
   return (
     <Card
       key={ex._id}
-      className="flex items-center justify-between flex-row group bg-muted/40 hover:bg-muted border border-transparent hover:border-border p-1.5 rounded-lg transition-all"
+      className={cn(
+        "flex items-center justify-between flex-row group p-1.5 rounded-lg transition-all border border-transparent hover:border-border",
+        ex.isCompleted ? " opacity-70" : "bg-muted/40 hover:bg-muted",
+      )}
     >
       <div className="flex-1 min-w-0">
-        <span
+        <Link
           className="font-semibold text-sm transition-colors duration-200 hover:text-primary cursor-pointer"
-          onClick={handleCardClick}
+          href={ex.link}
+          target="_blank"
         >
           {ex.title}
-        </span>
-        <div className="text-xs text-muted-foreground mt-0.5">
-          {ex.category}
-        </div>
+        </Link>
+        <p className="text-xs text-muted-foreground mt-0.5">{ex.category}</p>
       </div>
       {children}
     </Card>

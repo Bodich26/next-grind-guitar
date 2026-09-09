@@ -13,29 +13,31 @@ import {
 import { Flame, User } from "lucide-react";
 import { useHeaderData } from "../model/use-header-data";
 import { HeaderSkeleton } from "./header-skeleton";
+import { useProgression } from "@/entities/progression";
 
 export const Header = () => {
-  const { stats, isLoading, isError } = useHeaderData();
+  const { stats, ...headerData } = useHeaderData();
+  const { level, ...progression } = useProgression();
 
   return (
     <header className="border-b bg-card sticky top-0 z-50">
       <Container className="flex justify-between items-center py-4">
         <Logo />
         <div className="flex items-center gap-4 md:gap-6">
-          {isLoading ? (
+          {headerData.isLoading ? (
             <HeaderSkeleton />
-          ) : !stats || isError ? (
+          ) : headerData.isError || progression.isError ? (
             <ErrorMessage message={"Ошибка получения статистики"} />
           ) : (
             <>
               <div className="hidden sm:flex items-center gap-2 border px-4 py-2 rounded-xl">
                 <Flame className="text-orange-500" size={20} />
-                <span className="font-semibold">{stats.streak} дней</span>
+                <span className="font-semibold">{stats?.streak} дней</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="text-right">
                   <div className="text-xs text-ring">УРОВЕНЬ</div>
-                  <div className="font-bold text-xl">{stats.level}</div>
+                  <div className="font-bold text-xl">{level}</div>
                 </div>
                 <div className="text-2xl">⭐</div>
               </div>
