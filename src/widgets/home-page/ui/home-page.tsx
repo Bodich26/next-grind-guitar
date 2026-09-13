@@ -8,7 +8,7 @@ import {
   Input,
   Instrument,
 } from "@/shared";
-import { CalendarIcon, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Chord from "@tombatossals/react-chords/lib/Chord";
 import guitarChordsRaw from "@tombatossals/chords-db/lib/guitar.json";
 import { TuningStringsList } from "@/features/tuned-string";
@@ -16,16 +16,9 @@ import { ExercisesList } from "@/widgets/exercises-list";
 import { TimerPractice } from "@/features/timer-practice";
 import { ProgressionItem } from "@/entities/progression";
 import { GeneralStatistics } from "@/widgets/general-statistics";
+import { ActivityCalendar } from "@/widgets/activity-calendar";
 
 export const HomePage = () => {
-  const [streak] = React.useState(14);
-  const [totalHours] = React.useState(87);
-  const [level] = React.useState(12);
-  const [points, setPoints] = React.useState(2450);
-
-  const [selectedExercise, setSelectedExercise] = React.useState(null);
-  const [isPlayerOpen, setIsPlayerOpen] = React.useState(false);
-
   const [selectedChord, setSelectedChord] =
     React.useState<ChordPosition | null>(null);
   const [chordSearch, setChordSearch] = React.useState("");
@@ -64,18 +57,6 @@ export const HomePage = () => {
       .filter((chord) => chord.name.toLowerCase().includes(searchTerm))
       .slice(0, 50);
   }, [chordSearch, allChords]);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const openPlayer = (exercise: any) => {
-    setSelectedExercise(exercise);
-    setIsPlayerOpen(true);
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const completeExercise = (exercise: any) => {
-    setPoints((prev) => prev + exercise.xp);
-    alert(`Упражнение "${exercise.title}" завершено! +${exercise.xp} XP`);
-  };
 
   return (
     <Container className="py-6 flex flex-col md:flex-row items-stretch md:items-start gap-6 min-h-screen bg-background text-foreground">
@@ -146,35 +127,7 @@ export const HomePage = () => {
 
         {/* Сетка: Календарь + Прогресс */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Активность (Календарь) */}
-          <Card className="lg:col-span-7 p-5 border border-border bg-card rounded-xl shadow-sm">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="font-bold flex items-center gap-2 text-sm uppercase tracking-wider text-muted-foreground">
-                <CalendarIcon className="w-4 h-4 text-primary" /> Активность
-              </h3>
-              <span className="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">
-                {streak} дней подряд 🔥
-              </span>
-            </div>
-
-            <div className="grid grid-cols-7 gap-1.5">
-              {Array.from({ length: 28 }).map((_, i) => {
-                const isActive = i % 3 === 0 || i % 5 === 0;
-                return (
-                  <div
-                    key={i}
-                    className={`aspect-square rounded-md flex items-center justify-center text-xs font-bold transition-all border ${
-                      isActive
-                        ? "bg-primary/20 text-primary border-primary/30"
-                        : "bg-muted/40 hover:bg-muted border-transparent text-muted-foreground"
-                    }`}
-                  >
-                    {i + 1}
-                  </div>
-                );
-              })}
-            </div>
-          </Card>
+          <ActivityCalendar />
           <ProgressionItem />
         </div>
         <GeneralStatistics />

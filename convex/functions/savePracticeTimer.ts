@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { mutation } from "../_generated/server";
 import { calculateLevel } from "../utils";
+import { getTodayString } from "../helpers";
 
 export const savePracticeTimer = mutation({
   args: {
@@ -21,7 +22,7 @@ export const savePracticeTimer = mutation({
     if (!user) return null;
 
     const earnedXp = Math.floor(args.seconds / 300);
-    const today = new Date().toISOString().split("T")[0];
+    const today = getTodayString();
 
     await ctx.db.insert("practiceSessions", {
       userId: user._id,
@@ -52,7 +53,7 @@ export const savePracticeTimer = mutation({
         completedExercisesCount: 0,
         completedRiffsCount: 0,
         totalSeconds: args.seconds,
-        streak: 1,
+        streak: 0,
         lastPracticeDate: today,
       });
     }

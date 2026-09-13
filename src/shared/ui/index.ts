@@ -21,3 +21,4 @@ export * from "./sonner";
 export * from "./dialog";
 export * from "./select";
 export * from "./status-form";
+export * from "./calendar";
