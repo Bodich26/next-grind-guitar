@@ -35,6 +35,11 @@ export default defineSchema({
     date: v.string(),
     durationSeconds: v.number(),
     xpEarned: v.number(),
+  }),
+
+  completed_days: defineTable({
+    userId: v.id("users"),
+    date: v.string(),
   })
     .index("by_user", ["userId"])
     .index("by_user_and_date", ["userId", "date"]),
