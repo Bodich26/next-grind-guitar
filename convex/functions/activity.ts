@@ -76,14 +76,16 @@ export const toggleTodayActivity = mutation({
     if (existingEntry) {
       await ctx.db.delete(existingEntry._id);
       const newStreak = Math.max(0, (stats.streak ?? 0) - 1);
+      const newXp = (stats.currentXp ?? 0) - 5;
 
       await ctx.db.patch(stats._id, {
         streak: newStreak,
+        currentXp: newXp,
       });
 
       return {
         success: true,
-        message: "День убран успешно",
+        message: "Сегодняшний день убран",
         streak: newStreak,
       };
     } else {
@@ -93,14 +95,16 @@ export const toggleTodayActivity = mutation({
       });
 
       const newStreak = (stats.streak ?? 0) + 1;
+      const newXp = (stats.currentXp ?? 0) + 5;
       await ctx.db.patch(stats._id, {
         streak: newStreak,
         lastPracticeDate: today,
+        currentXp: newXp,
       });
 
       return {
         success: true,
-        message: "День добавлен успешно",
+        message: "Сегодняшний день добавлен",
         streak: newStreak,
       };
     }
