@@ -22,3 +22,4 @@ export * from "./dialog";
 export * from "./select";
 export * from "./status-form";
 export * from "./calendar";
+export * from "./loading-page";
