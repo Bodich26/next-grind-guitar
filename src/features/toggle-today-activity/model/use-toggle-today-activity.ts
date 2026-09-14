@@ -9,17 +9,28 @@ export const useToggleTodayActivity = () => {
   );
 
   const [isPending, setIsPending] = React.useState<boolean>(false);
+  React.useEffect(() => {
+    if (!isPending) return;
+
+    const timer = setTimeout(() => {
+      setIsPending(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isPending]);
 
   const handleToggle = async () => {
     if (isPending) return;
-
     setIsPending(true);
     try {
-      await toggleActivity();
+      const res = await toggleActivity();
+      return res;
     } catch (error) {
       console.error("Ошибка при добавлении дня:", error);
-    } finally {
       setIsPending(false);
+      return { success: false, message: "Ошибка выполнения запроса" };
     }
   };
 

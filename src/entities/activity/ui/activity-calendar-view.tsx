@@ -8,7 +8,6 @@ export function ActivityCalendarView({
   onToggleToday,
   disabled,
 }: ActivityCalendarProps) {
-  const today = new Date();
   const todayStr = getTodayString();
 
   const completedDateObjects = React.useMemo(
@@ -19,7 +18,6 @@ export function ActivityCalendarView({
   return (
     <Calendar
       mode="single"
-      selected={today}
       captionLayout="dropdown"
       className="rounded-lg border w-full bg-muted/20"
       disabled={(date) => {
@@ -30,13 +28,8 @@ export function ActivityCalendarView({
         completed: completedDateObjects,
       }}
       modifiersClassNames={{
-        completed: "bg-green-500 text-white font-bold rounded-md",
-      }}
-      onDayClick={(date) => {
-        const dateStr = getTodayString(date);
-        if (dateStr === todayStr && onToggleToday) {
-          onToggleToday();
-        }
+        completed: "bg-primary text-white rounded-lg",
+        selected: "rounded-lg! ",
       }}
     />
   );
