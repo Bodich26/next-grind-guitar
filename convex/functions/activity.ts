@@ -1,5 +1,5 @@
 import { query, mutation } from "../_generated/server";
-import { getTodayString } from "../helpers";
+import { calculateStreak, getTodayString } from "../helpers";
 
 export const getActivityData = query({
   args: {},
@@ -24,10 +24,13 @@ export const getActivityData = query({
       .withIndex("by_user", (q) => q.eq("userId", user._id))
       .unique();
 
+    const completedDates = days.map((d) => d.date);
+    const currentStreak = calculateStreak(completedDates);
+
     return {
       completedDates: days.map((d) => d.date),
       userXp: stats?.currentXp ?? 0,
-      currentStreak: stats?.streak ?? 0,
+      currentStreak,
     };
   },
 });
@@ -75,8 +78,15 @@ export const toggleTodayActivity = mutation({
 
     if (existingEntry) {
       await ctx.db.delete(existingEntry._id);
-      const newStreak = Math.max(0, (stats.streak ?? 0) - 1);
-      const newXp = (stats.currentXp ?? 0) - 5;
+
+      const updatedDays = await ctx.db
+        .query("completed_days")
+        .withIndex("by_user", (q) => q.eq("userId", user._id))
+        .collect();
+
+      const completedDates = updatedDays.map((d) => d.date);
+      const newStreak = calculateStreak(completedDates);
+      const newXp = Math.max(0, (stats.currentXp ?? 0) - 5);
 
       await ctx.db.patch(stats._id, {
         streak: newStreak,
@@ -94,8 +104,15 @@ export const toggleTodayActivity = mutation({
         date: today,
       });
 
-      const newStreak = (stats.streak ?? 0) + 1;
+      const updatedDays = await ctx.db
+        .query("completed_days")
+        .withIndex("by_user", (q) => q.eq("userId", user._id))
+        .collect();
+
+      const completedDates = updatedDays.map((d) => d.date);
+      const newStreak = calculateStreak(completedDates);
       const newXp = (stats.currentXp ?? 0) + 5;
+
       await ctx.db.patch(stats._id, {
         streak: newStreak,
         lastPracticeDate: today,

@@ -23,3 +23,4 @@ export * from "./select";
 export * from "./status-form";
 export * from "./calendar";
 export * from "./loading-page";
+export * from "./loading-auth-page";
